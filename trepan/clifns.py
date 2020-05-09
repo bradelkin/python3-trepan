@@ -15,6 +15,7 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import os, linecache
 import os.path as osp
+from typing import List, Optional
 
 
 # FIXME: do a better job of this. Live parsing?
@@ -48,7 +49,7 @@ def file2module(filename):
     return None
 
 
-def search_file(filename, directories, cdir):
+def search_file(filename: str, directories: List[str], cdir: str) -> Optional[str]:
     """Return a full pathname for filename if we can find one. path
     is a list of directories to prepend to filename. If no file is
     found we'll return None"""

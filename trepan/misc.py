@@ -23,7 +23,7 @@ def option_set(options, value, default_options):
     return None  # Not reached
 
 
-def bool2YN(b):
+def bool2YN(b: str):
     return "Y" if b else "N"
 
 

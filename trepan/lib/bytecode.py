@@ -15,11 +15,11 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Bytecode instruction routines"""
 
-import dis, re
+import xdis, re
 from opcode import opname, HAVE_ARGUMENT
 
 
-def op_at_code_loc(code, loc):
+def op_at_code_loc(code, loc: int) -> str:
     try:
         op = code[loc]
     except IndexError:
@@ -27,14 +27,14 @@ def op_at_code_loc(code, loc):
     return opname[op]
 
 
-def op_at_frame(frame, loc=None):
+def op_at_frame(frame, loc=None) -> str:
     code = frame.f_code.co_code
     if loc is None:
         loc = frame.f_lasti
     return op_at_code_loc(code, loc)
 
 
-def next_opcode(code, offset):
+def next_opcode(code, offset: int):
     """Return the next opcode and offset as a tuple. Tuple (-100,
     -1000) is returned when reaching the end."""
     n = len(code)
@@ -51,7 +51,7 @@ def next_opcode(code, offset):
 
 
 def next_linestart(co, offset, count=1):
-    linestarts = dict(dis.findlinestarts(co))
+    linestarts = dict(xdis.findlinestarts(co))
     code = co.co_code
     # n = len(code)
     # contains_cond_jump = False
@@ -66,7 +66,7 @@ def next_linestart(co, offset, count=1):
 
 
 def stmt_contains_opcode(co, lineno, query_opcode):
-    linestarts = dict(dis.findlinestarts(co))
+    linestarts = dict(xdis.findlinestarts(co))
     code = co.co_code
     found_start = False
     for offset, start_line in list(linestarts.items()):
